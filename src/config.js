@@ -40,7 +40,7 @@ const config = {
   test: { },
   development: {
     mongo: {
-      uri: 'mongodb://admin:admin1@ds163835.mlab.com:63835/not4chandb',
+      uri: 'mongodb://admin@admin.com:admin1@ds163835.mlab.com:63835/not4chandb',
       options: {
         debug: true
       }
@@ -50,7 +50,7 @@ const config = {
     ip: process.env.IP || undefined,
     port: process.env.PORT || 8080,
     mongo: {
-      uri: process.env.MONGODB_URI || 'mongodb://admin:admin1@ds163835.mlab.com:63835/not4chandb'
+      uri: process.env.MONGODB_URI || 'mongodb://admin@admin.com:admin1@ds163835.mlab.com:63835/not4chandb'
     }
   }
 }
