@@ -7,7 +7,7 @@ export const index = ({ querymen: { query, select, cursor } }, res, next) =>
     .then(count => User.find(query, select, cursor)
     .populate('thread')
       .then(users => ({
-        rows: users.map((user) => user.view()),
+        rows: users.map((user) => user.view(true)),
         count
       }))
     )
