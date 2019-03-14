@@ -10,8 +10,8 @@ export const create = ({ bodymen: { body } }, res, next) =>
 export const index = ({ querymen: { query, select, cursor } }, res, next) =>
   Thread.count(query)
     .then(count => Thread.find(query, select, cursor)
-    .populate('comment')
-    .populate('category')
+    .populate('Comment')
+    .populate('Category')
       .then((threads) => ({
         count,
         rows: threads.map((thread) => thread.view())
