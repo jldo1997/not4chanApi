@@ -13,7 +13,7 @@ export const index = ({ querymen: { query, select, cursor } }, res, next) =>
       .populate('user')
       .then((comments) => ({
         count,
-        rows: comments.map((comment) => comment.view())
+        rows: comments.map((comment) => comment.view(true))
       }))
     )
     .then(success(res))
