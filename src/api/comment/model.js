@@ -8,7 +8,7 @@ const commentSchema = new Schema({
   },
   photo: {
     type: Schema.ObjectId,
-    ref: 'photo'
+    ref: 'Photo'
   },
   responseTo: {
     type: Schema.ObjectId,
