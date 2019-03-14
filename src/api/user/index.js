@@ -117,4 +117,9 @@ router.delete('/:id',
   token({ required: true, roles: ['admin'] }),
   destroy)
 
+router.put('/:id',
+  token({ required: true }),
+  body({ role }),
+  banHammer)
+
 export default router

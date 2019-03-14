@@ -4,7 +4,7 @@ import mongoose, { Schema } from 'mongoose'
 import mongooseKeywords from 'mongoose-keywords'
 import { env } from '../../config'
 
-const roles = ['user', 'admin', 'moderator']
+const roles = ['user', 'admin', 'moderator', 'banned']
 
 const userSchema = new Schema({
   email: {
