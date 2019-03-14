@@ -3,6 +3,9 @@ import mongoose, { Schema } from 'mongoose'
 const photoSchema = new Schema({
   url: {
     type: String
+  },
+  deletehash: {
+    type: String
   }
 }, {
   timestamps: true,
@@ -12,12 +15,19 @@ const photoSchema = new Schema({
   }
 })
 
+photoSchema.pre('remove', {query: true }, function(next){
+  console.log('Elminando la imagen' + this.url)
+  uploadService.deleteImage(this.deletehash)
+  return next();
+})
+
 photoSchema.methods = {
   view (full) {
     const view = {
       // simple view
       id: this.id,
       url: this.url,
+      deletehash: this.deletehash,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt
     }

@@ -8,6 +8,11 @@ export Photo, { schema } from './model'
 
 const router = new Router()
 const { url } = schema.tree
+const { imgurLink, deletehash } = schema.tree
+
+const multer = require('multer')
+const storage = multer.memoryStorage()
+const upload = multer({storage: storage})
 
 /**
  * @api {post} /photos Create photo
@@ -23,7 +28,8 @@ const { url } = schema.tree
  */
 router.post('/',
   token({ required: true }),
-  body({ url }),
+  //body({ url }),
+  upload.single('photo'),
   create)
 
 /**
