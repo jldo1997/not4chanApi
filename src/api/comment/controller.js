@@ -12,7 +12,6 @@ export const index = ({ querymen: { query, select, cursor } }, res, next) =>
     .then(count => Comment.find(query, select, cursor)
       .populate('user')
       .populate('photo')
-      .populate('comment')
       .then((comments) => ({
         count,
         rows: comments.map((comment) => comment.view(true))
