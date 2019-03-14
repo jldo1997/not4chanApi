@@ -76,7 +76,7 @@ router.post('/',
  * @apiPermission user
  * @apiParam {String} access_token User access_token.
  * @apiParam {String} [name] User's name.
- * @apiParam {String} [picture] User's picture.
+ * @apiParam {String} [email] User's email.
  * @apiSuccess {Object} user User's data.
  * @apiError {Object} 400 Some parameters may contain invalid values.
  * @apiError 401 Current user or admin access only.
@@ -84,7 +84,7 @@ router.post('/',
  */
 router.put('/:id',
   token({ required: true }),
-  body({ name, picture }),
+  body({ name, email }),
   update)
 
 /**
