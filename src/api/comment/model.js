@@ -32,12 +32,13 @@ commentSchema.methods = {
       // simple view
       id: this.id,
       user: this.user.view(full),
-      photo: this.photo.view(full),
-      responseTo: this.responseTo.view(full),
+      photo: this.photo,
+      responseTo: this.responseTo,
       content: this.content,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt
     }
+
 
     return full ? {
       ...view
