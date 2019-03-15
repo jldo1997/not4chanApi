@@ -12,6 +12,7 @@ export const index = ({ querymen: { query, select, cursor } }, res, next) =>
     .then(count => Comment.find(query, select, cursor)
       .populate('user')
       .populate('photo')
+      .populate('responseTo')
       .then((comments) => ({
         count,
         rows: comments.map((comment) => comment.view(true))
@@ -34,6 +35,7 @@ export const update = ({ bodymen: { body }, params }, res, next) =>
   Comment.findById(params.id)
     .populate('user')
     .populate('photo')
+    .populate('responseTo')
     .then(notFound(res))
     .then((comment) => comment ? Object.assign(comment, body).save() : null)
     .then((comment) => comment ? comment.view(true) : null)

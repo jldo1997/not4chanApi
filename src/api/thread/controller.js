@@ -10,8 +10,9 @@ export const create = ({ bodymen: { body } }, res, next) =>
 export const index = ({ querymen: { query, select, cursor } }, res, next) =>
   Thread.count(query)
     .then(count => Thread.find(query, select, cursor)
-    .populate('Comment')
-    .populate('Category')
+    .populate('headerComment')
+    .populate('comments')
+    .populate('category')
       .then((threads) => ({
         count,
         rows: threads.map((thread) => thread.view())
@@ -22,6 +23,9 @@ export const index = ({ querymen: { query, select, cursor } }, res, next) =>
 
 export const show = ({ params }, res, next) =>
   Thread.findById(params.id)
+    .populate('headerComment')
+    .populate('comments')
+    .populate('category')
     .then(notFound(res))
     .then((thread) => thread ? thread.view() : null)
     .then(success(res))
@@ -29,6 +33,9 @@ export const show = ({ params }, res, next) =>
 
 export const update = ({ bodymen: { body }, params }, res, next) =>
   Thread.findById(params.id)
+    .populate('headerComment')
+    .populate('comments')
+    .populate('category')
     .then(notFound(res))
     .then((thread) => thread ? Object.assign(thread, body).save() : null)
     .then((thread) => thread ? thread.view(true) : null)

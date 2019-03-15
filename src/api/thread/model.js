@@ -3,15 +3,15 @@ import mongoose, { Schema } from 'mongoose'
 const threadSchema = new Schema({
   category: {
     type: Schema.ObjectId,
-    ref: 'category'
+    ref: 'Category'
   },
   comments: [{
     type: Schema.ObjectId,
-    ref: 'comment'
+    ref: 'Comment'
   }],
   headerComment: {
     type: Schema.ObjectId,
-    ref: 'comment',
+    ref: 'Comment',
     required: true
   },
   title: {

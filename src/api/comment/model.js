@@ -33,7 +33,7 @@ commentSchema.methods = {
       id: this.id,
       user: this.user.view(full),
       photo: this.photo,
-      responseTo: this.responseTo,
+      responseTo: this.responseTo.view(full),
       content: this.content,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt
