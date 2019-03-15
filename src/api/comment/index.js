@@ -7,7 +7,7 @@ import { schema } from './model'
 export Comment, { schema } from './model'
 
 const router = new Router()
-const {photo, responseTo, content } = schema.tree
+const {user, photo, responseTo, content } = schema.tree
 
 /**
  * @api {post} /comments Create comment
