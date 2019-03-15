@@ -31,7 +31,7 @@ threadSchema.methods = {
       // simple view
       id: this.id,
       category: this.category,
-      comments: this.comments.view(full),
+      comments: this.comments,
       headerComment: this.headerComment.view(full),
       title: this.title,
       createdAt: this.createdAt,
