@@ -12,7 +12,7 @@ const commentSchema = new Schema({
   },
   responseTo: {
     type: Schema.ObjectId,
-    ref: 'comment',
+    ref: 'Comment',
     required: false
   },
   content: {

@@ -24,6 +24,7 @@ export const show = ({ params }, res, next) =>
   Comment.findById(params.id)
     .populate('user')
     .populate('photo')
+    .populate('responseTo')
     .then(notFound(res))
     .then((comment) => comment ? comment.view() : null)
     .then(success(res))
