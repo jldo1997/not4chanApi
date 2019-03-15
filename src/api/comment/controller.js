@@ -23,6 +23,7 @@ export const index = ({ querymen: { query, select, cursor } }, res, next) =>
 export const show = ({ params }, res, next) =>
   Comment.findById(params.id)
     .populate('user')
+    .populate('Photo')
     .then(notFound(res))
     .then((comment) => comment ? comment.view() : null)
     .then(success(res))
@@ -31,6 +32,7 @@ export const show = ({ params }, res, next) =>
 export const update = ({ bodymen: { body }, params }, res, next) =>
   Comment.findById(params.id)
     .populate('user')
+    .populate('Photo')
     .then(notFound(res))
     .then((comment) => comment ? Object.assign(comment, body).save() : null)
     .then((comment) => comment ? comment.view(true) : null)
