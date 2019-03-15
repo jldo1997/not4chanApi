@@ -10,8 +10,7 @@ export const create = ({ bodymen: { body } }, res, next) =>
 export const index = ({ querymen: { query, select, cursor } }, res, next) =>
   Thread.count(query)
     .then(count => Thread.find(query, select, cursor)
-    .populate('headerComment')
-    .populate('headerComment.user')
+    .populate({path:'headerComment', populate: {path: 'user'}})
     .populate('comments')
     .populate('category')
       .then((threads) => ({
