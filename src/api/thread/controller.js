@@ -11,7 +11,7 @@ export const index = ({ querymen: { query, select, cursor } }, res, next) =>
   Thread.count(query)
     .then(count => Thread.find(query, select, cursor)
     .populate({path:'headerComment', populate: [{path: 'user' }, {path: 'photo'}]})
-    .populate('comments')
+    .populate({path:'comments', populate: [{path: 'user' }, {path: 'photo'}]})
     .populate('category')
       .then((threads) => ({
         count,
@@ -23,8 +23,8 @@ export const index = ({ querymen: { query, select, cursor } }, res, next) =>
 
 export const show = ({ params }, res, next) =>
   Thread.findById(params.id)
-    .populate('headerComment')
-    .populate('comments')
+    .populate({path:'headerComment', populate: [{path: 'user' }, {path: 'photo'}]})
+    .populate({path:'comments', populate: [{path: 'user' }, {path: 'photo'}]})
     .populate('category')
     .then(notFound(res))
     .then((thread) => thread ? thread.view() : null)
@@ -33,8 +33,8 @@ export const show = ({ params }, res, next) =>
 
 export const update = ({ bodymen: { body }, params }, res, next) =>
   Thread.findById(params.id)
-    .populate('headerComment')
-    .populate('comments')
+    .populate({path:'headerComment', populate: [{path: 'user' }, {path: 'photo'}]})
+    .populate({path:'comments', populate: [{path: 'user' }, {path: 'photo'}]})
     .populate('category')
     .then(notFound(res))
     .then((thread) => thread ? Object.assign(thread, body).save() : null)
