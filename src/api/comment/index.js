@@ -68,7 +68,7 @@ router.get('/:id',
  * @apiError 404 Comment not found.
  */
 router.put('/:id',
-  body({ photo, responseTo, content }),
+  body({ user, photo, responseTo, content }),
   update)
 
 /**
