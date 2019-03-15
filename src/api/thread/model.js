@@ -32,7 +32,7 @@ threadSchema.methods = {
       id: this.id,
       category: this.category,
       comments: this.comments,
-      headerComment: this.headerComment.view(full),
+      headerComment: this.headerComment,
       title: this.title,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt

@@ -11,6 +11,7 @@ export const index = ({ querymen: { query, select, cursor } }, res, next) =>
   Thread.count(query)
     .then(count => Thread.find(query, select, cursor)
     .populate('headerComment')
+    .populate('headerComment.user')
     .populate('comments')
     .populate('category')
       .then((threads) => ({
