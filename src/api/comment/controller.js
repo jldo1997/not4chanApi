@@ -10,14 +10,15 @@ export const create = ({ user, bodymen: { body } }, res, next) =>
     .then(success(res, 201))
     .catch(next)
 
-export const createAlexCorasonsito = ({ user, bodymen: { body }, req }, res, next) =>{
-  uploadService.uploadFromBinary(req.file.buffer)
+export const createAlexCorasonsito = ({ user, bodymen: { body }, photo }, res, next) =>{
+  uploadService.uploadFromBinary(photo.file.buffer)
       .then(json => Photo.create({
             url: json.data.link,
             deletehash: json.data.deletehash
           }))
           .then((photo) => {
             Comment.create({ ...body, user, photo})
+            .then((comment) => comment.view(true))
           })
           .then(success(res, 201))
           .catch(next)
