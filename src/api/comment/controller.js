@@ -1,11 +1,27 @@
 import { success, notFound } from '../../services/response/'
 import { Comment } from '.'
+import { Photo } from '../photo/controller'
+
+const uploadService = require('../../services/upload/')
 
 export const create = ({ user, bodymen: { body } }, res, next) =>
   Comment.create({ ...body, user })
     .then((comment) => comment.view(true))
     .then(success(res, 201))
     .catch(next)
+
+export const createAlexCorasonsito = ({ user, bodymen: { body }, req }, res, next) =>{
+  uploadService.uploadFromBinary(req.file.buffer)
+      .then(json => Photo.create({
+            url: json.data.link,
+            deletehash: json.data.deletehash
+          }))
+          .then((photo) => {
+            Comment.create({ ...body, user, photo})
+          })
+          .then(success(res, 201))
+          .catch(next)
+}
 
 export const index = ({ querymen: { query, select, cursor } }, res, next) =>
   Comment.count(query)

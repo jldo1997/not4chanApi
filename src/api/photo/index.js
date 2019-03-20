@@ -8,7 +8,6 @@ export Photo, { schema } from './model'
 
 const router = new Router()
 const { url } = schema.tree
-const { imgurLink, deletehash } = schema.tree
 
 const multer = require('multer')
 const storage = multer.memoryStorage()

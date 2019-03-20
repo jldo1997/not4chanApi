@@ -2,12 +2,16 @@ import { Router } from 'express'
 import { middleware as query } from 'querymen'
 import { middleware as body } from 'bodymen'
 import { token, master } from '../../services/passport'
-import { create, index, show, update, destroy } from './controller'
+import { create, index, show, update, destroy, createAlexCorasonsito } from './controller'
 import { schema } from './model'
 export Comment, { schema } from './model'
 
 const router = new Router()
 const {user, photo, responseTo, content } = schema.tree
+
+const multer = require('multer')
+const storage = multer.memoryStorage()
+const upload = multer({storage: storage})
 
 /**
  * @api {post} /comments Create comment
@@ -27,6 +31,12 @@ router.post('/',
   token({ required: true }),
   body({ photo, responseTo, content }),
   create)
+
+  router.post('/adv',
+  token({ required: true }),
+  body({ responseTo, content }),
+  upload.single('photo'),
+  createAlexCorasonsito)
 
 /**
  * @api {get} /comments Retrieve comments
