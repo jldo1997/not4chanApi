@@ -17,7 +17,8 @@ export const createAlexCorasonsito = (req, res, next) =>{
             deletehash: json.data.deletehash
           }))
           .then((photo) => {
-            Comment.create({ req , photo})
+            const temp = req.body;
+            Comment.create({ temp, photo })
             .then((comment) => comment.view(true))
           })
           .then(success(res, 201))
