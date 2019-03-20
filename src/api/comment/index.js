@@ -34,7 +34,7 @@ router.post('/',
 
   router.post('/adv',
   token({ required: true }),
-  body({ responseTo, content }),
+  //body({ responseTo, content }),
   upload.single('photo'),
   createAlexCorasonsito)
 
