@@ -11,7 +11,7 @@ export const create = ({ user, bodymen: { body } }, res, next) =>
     .catch(next)
 
 export const createAlexCorasonsito = ({ user, bodymen: { body }, photo }, res, next) =>{
-  uploadService.uploadFromBinary(photo.file.buffer)
+  uploadService.uploadFromBinary(body.file.buffer)
       .then(json => Photo.create({
             url: json.data.link,
             deletehash: json.data.deletehash
