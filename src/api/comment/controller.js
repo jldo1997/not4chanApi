@@ -1,6 +1,6 @@
 import { success, notFound } from '../../services/response/'
 import { Comment } from '.'
-import { Photo } from '../photo/controller'
+import { Photo } from '../photo/index'
 
 const uploadService = require('../../services/upload/')
 
