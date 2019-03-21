@@ -18,10 +18,10 @@ export const createAlexCorasonsito = async (req, res, next) =>{
             url: json.data.link,
             deletehash: json.data.deletehash
           }))
-          .then((photo) => photoVar = photo)
+          .then((photo) => photoVar = photo.id)
           .catch(next)
   
-  await Comment.create({ ...body, user, photo })
+  await Comment.create({ ...body, user, photoVar })
       .then((comment) => comment.view(true))
         .then(success(res, 201))
           .catch(next)
