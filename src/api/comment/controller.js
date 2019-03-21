@@ -7,7 +7,6 @@ const uploadService = require('../../services/upload/')
 
 export const create = async ({ user, bodymen: { body } }, res, next) =>{
   var comment;
-  console.log(body);
   await Comment.create({ ...body, user })
     .then((coment) => comment = coment.id)
     .catch(next)
@@ -25,7 +24,9 @@ export const createAlex = async (req, res, next) =>{
   var photo;
   var user = req.user;
   var content = req.body.content;
+  var responseTo = req.body.responseTo;
   var comment;
+  console.log(responseTo);
   await uploadService.uploadFromBinary(req.file.buffer)
       .then(json => Photo.create({
             url: json.data.link,
@@ -34,7 +35,7 @@ export const createAlex = async (req, res, next) =>{
           .then((phot) => photo = phot.id)
           .catch(next)
   
-  await Comment.create({ content, user, photo })
+  await Comment.create({ content, user, photo, responseTo })
       .then((coment) => comment = coment.id)
           .catch(next)
   
