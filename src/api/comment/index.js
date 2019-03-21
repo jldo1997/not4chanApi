@@ -2,7 +2,7 @@ import { Router } from 'express'
 import { middleware as query } from 'querymen'
 import { middleware as body } from 'bodymen'
 import { token, master } from '../../services/passport'
-import { create, index, show, update, destroy, createAlexCorasonsito } from './controller'
+import { create, index, show, update, destroy, createAlex } from './controller'
 import { schema } from './model'
 export Comment, { schema } from './model'
 
@@ -36,7 +36,7 @@ router.post('/',
   token({ required: true }),
   //body({ responseTo, content }),
   upload.single('photo'),
-  createAlexCorasonsito)
+  createAlex)
 
 /**
  * @api {get} /comments Retrieve comments
