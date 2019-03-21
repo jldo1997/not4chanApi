@@ -42,6 +42,7 @@ export const update = ({ bodymen: { body }, params }, res, next) =>
     .then(success(res))
     .catch(next)
 
+
 export const destroy = ({ params }, res, next) =>
   Thread.findById(params.id)
     .then(notFound(res))

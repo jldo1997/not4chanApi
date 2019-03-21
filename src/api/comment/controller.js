@@ -1,6 +1,7 @@
 import { success, notFound } from '../../services/response/'
 import { Comment } from '.'
 import { Photo } from '../photo/index'
+import { Thread } from '../thread/index'
 
 const uploadService = require('../../services/upload/')
 
@@ -14,6 +15,7 @@ export const createAlex = async (req, res, next) =>{
   var photo;
   var user = req.user;
   var content = req.body.content;
+  var comment;
   await uploadService.uploadFromBinary(req.file.buffer)
       .then(json => Photo.create({
             url: json.data.link,
@@ -23,13 +25,25 @@ export const createAlex = async (req, res, next) =>{
           .catch(next)
   
   await Comment.create({ content, user, photo })
-      .then((comment) => res.send(comment))
+      .then((coment) => comment = coment.id)
+          .catch(next)
+  
+  await Thread.findById(req.body.threadId)
+          .then(notFound(res))
+          .then((thread) => {
+            thread.comments.push(comment);
+            thread.save();
+          })
+          .then(res.send(201))
+
+
           .catch(next)
 }
 
 export const index = ({ querymen: { query, select, cursor } }, res, next) =>
   Comment.count(query)
     .then(count => Comment.find(query, select, cursor)
+    .limit(400)
       .populate('user')
       .populate('photo')
       .populate({path: 'responseTo', populate: {path: 'user'}})
