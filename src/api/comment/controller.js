@@ -23,7 +23,7 @@ export const createAlexCorasonsito = async (req, res, next) =>{
   
   await Comment.create({ ...body, user, photoVar })
       .then((comment) => comment.view(true))
-        .then(success(res, 201))
+        .then(res.send(comment))
           .catch(next)
 }
 
