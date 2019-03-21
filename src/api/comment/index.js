@@ -7,7 +7,7 @@ import { schema } from './model'
 export Comment, { schema } from './model'
 
 const router = new Router()
-const {user, photo, responseTo, content } = schema.tree
+const {user, photo, responseTo, content, threadId } = schema.tree
 
 const multer = require('multer')
 const storage = multer.memoryStorage()
@@ -29,7 +29,7 @@ const upload = multer({storage: storage})
  */
 router.post('/',
   token({ required: true }),
-  body({ photo, responseTo, content }),
+  body({ responseTo, content, threadId }),
   create)
 
   router.post('/adv',

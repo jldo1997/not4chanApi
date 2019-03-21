@@ -5,11 +5,21 @@ import { Thread } from '../thread/index'
 
 const uploadService = require('../../services/upload/')
 
-export const create = ({ user, bodymen: { body } }, res, next) =>
-  Comment.create({ ...body, user })
-    .then((comment) => comment.view(true))
-    .then(success(res, 201))
+export const create = async ({ user, bodymen: { body } }, res, next) =>{
+  var comment;
+  console.log(body);
+  await Comment.create({ ...body, user })
+    .then((coment) => comment = coment.id)
     .catch(next)
+  await Thread.findById(body.threadId)
+    .then(notFound(res))
+    .then((thread) => {
+      thread.comments.push(comment);
+      thread.save();
+    })
+    .then(res.send(201))
+    .catch(next)
+}
 
 export const createAlex = async (req, res, next) =>{
   var photo;
@@ -35,8 +45,6 @@ export const createAlex = async (req, res, next) =>{
             thread.save();
           })
           .then(res.send(201))
-
-
           .catch(next)
 }
 
