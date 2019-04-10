@@ -2,12 +2,16 @@ import { Router } from 'express'
 import { middleware as query } from 'querymen'
 import { middleware as body } from 'bodymen'
 import { token, master } from '../../services/passport'
-import { create, index, show, update, destroy } from './controller'
+import { create, index, show, update, destroy, create2 } from './controller'
 import { schema } from './model'
 export Thread, { schema } from './model'
 
 const router = new Router()
 const { category, comments, headerComment, title } = schema.tree
+
+const multer = require('multer')
+const storage = multer.memoryStorage()
+const upload = multer({storage: storage})
 
 /**
  * @api {post} /threads Create thread
@@ -28,6 +32,11 @@ router.post('/',
   token({ required: true }),
   body({ category, comments, headerComment, title }),
   create)
+
+  router.post('/adv',
+  token({ required: true }),
+  upload.single('photo'),
+  create2)
 
 /**
  * @api {get} /threads Retrieve threads

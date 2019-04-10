@@ -1,4 +1,5 @@
 import mongoose, { Schema } from 'mongoose'
+import { Comment } from '../comment/index'
 
 const threadSchema = new Schema({
   category: {
@@ -24,6 +25,11 @@ const threadSchema = new Schema({
     transform: (obj, ret) => { delete ret._id }
   }
 })
+
+threadSchema.pre('remove', function(next){
+  Comment.remove({ thread: this._id}).exec();
+  next();
+});
 
 threadSchema.methods = {
   view (full) {
